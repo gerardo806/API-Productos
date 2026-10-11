@@ -23,6 +23,24 @@ export const openApiSpec = {
                     }
                 }
             }
+        },
+        '/api/products/listAll': {
+            get: {
+                summary: 'Listar productos con caregoría',
+                responses: {
+                    '200': {
+                        description: 'Lista de productos con categoría',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    type: 'array',
+                                    items: { type: 'object' }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 };
