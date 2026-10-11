@@ -16,7 +16,7 @@ export class SaveProductValidation extends ValidationsBase {
     }
 
     isValidProductNameFormat(value: string): boolean {
-        const regex = /^[a-zA-Z0-9\s]+$/; // Alphanumeric and spaces
+        const regex = /^[a-zA-Z+áéíóúñÑ0-9\s]+$/; // Alphanumeric and spaces
         return this.expressionTest(value, regex);
     }
 
@@ -52,7 +52,6 @@ export class SaveProductValidation extends ValidationsBase {
 
         if(result.messages.length === 0){
             result.success = true;
-            result.messages.push('Product is valid');
         }
 
         return result;
