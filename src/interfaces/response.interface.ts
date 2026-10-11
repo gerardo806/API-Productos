@@ -3,3 +3,9 @@ export interface ResponseHttp{
     message: string;
     data?: any;
 }
+
+export interface ResponseHttpError{
+    success: boolean;
+    messages: string[];
+    error?: any;
+}

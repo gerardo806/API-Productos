@@ -14,4 +14,8 @@ export class ValidationsBase {
     isPositiveNumber(value: number): boolean {
         return this.isNumber(value) && value > 0;
     }
+
+    expressionTest(value: string, regex: RegExp): boolean {
+        return regex.test(value);
+    }
 }
