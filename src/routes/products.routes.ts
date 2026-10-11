@@ -9,6 +9,9 @@ router.get('/test', (req, res) => {
 });
 
 router.get('/list', productsController.getAllProducts);
-router.get('/listCategory', productsController.getAllProductsOnCategory);
+router.get('/listAll', productsController.getAllProductsOnCategory);
+router.get('/about', (req, res) => {
+    res.json({ message: 'express js framework' });
+});
 
 export default router;

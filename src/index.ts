@@ -23,6 +23,28 @@ app.use(cors());
 app.use('/api/products', productsRoutes);
 
 // Start the server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+// Handle server errors
+server.on('error', (error: NodeJS.ErrnoException) => {
+    if (error.code === 'EADDRINUSE') {
+        console.error(`❌ El puerto ${PORT} ya está en uso. Mata el proceso anterior o cambia de puerto.`);
+        process.exit(1);
+    } else {
+        console.error('Error al iniciar el servidor:', error);
+    }
+});
+
+// Killer server process on SIGINT (Ctrl+C) and SIGTERM (kill)
+const shutdown = () => {
+    console.log('\nCerrando servidor limpiamente...');
+    server.close(() => {
+        console.log('Servidor detenido y puerto liberado.');
+        process.exit(0);
+    });
+};
+
+process.on('SIGINT', shutdown);  // Captura Ctrl + C
+process.on('SIGTERM', shutdown); // Captura señales de kill o nodemon

@@ -11,6 +11,7 @@ export class ProductsController {
     }
 
     async getAllProductsOnCategory(req: Request, res: Response) {
+        console.log('getAllProductsOnCategory called');
         const requestService = new RequestHttpDb(req, res);
         return await requestService.GetAll(products_query.getAllProductOnCategory);
     }
