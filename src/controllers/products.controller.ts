@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import { products_query } from '../config/queries.js';
 import { RequestHttpDb } from "../services/requestHttp.js"
-import type { Product } from '../interfaces/product.interface.js';
+import type { Product, ProductWithCategory } from '../interfaces/product.interface.js';
 
 export class ProductsController {
     async getAllProducts(req: Request, res: Response) {
@@ -13,6 +13,6 @@ export class ProductsController {
     async getAllProductsOnCategory(req: Request, res: Response) {
         console.log('getAllProductsOnCategory called');
         const requestService = new RequestHttpDb(req, res);
-        return await requestService.GetAll(products_query.getAllProductOnCategory);
+        return await requestService.GetAll<ProductWithCategory>(products_query.getAllProductOnCategory);
     }
 }

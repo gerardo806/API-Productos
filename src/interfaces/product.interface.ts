@@ -5,3 +5,7 @@ export interface Product extends RowDataPacket {
     nombre_producto: string;
     precio: number;
 }
+
+export interface ProductWithCategory extends Product {
+    nombre_categoria: string;
+}
