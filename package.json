@@ -6,7 +6,9 @@
     "mysql2": "^3.24.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "@types/node": "^26.6.5",
+    "nodemon": "^3.1.14",
+    "typescript": "^7.0.2"
   },
   "scripts": {
     "start": "node src/index.js",
