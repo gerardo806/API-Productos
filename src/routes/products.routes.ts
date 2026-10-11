@@ -8,8 +8,8 @@ router.get('/test', (req, res) => {
     res.json({ message: 'Test route for products' });
 });
 
-router.get('/list', productsController.getAllProducts);
-router.get('/listAll', productsController.getAllProductsOnCategory);
+router.get('/list', (req, res) => productsController.getAllProducts(req, res));
+router.get('/listAll', (req, res) => productsController.getAllProductsOnCategory(req, res));
 router.get('/about', (req, res) => {
     res.json({ message: 'express js framework' });
 });
