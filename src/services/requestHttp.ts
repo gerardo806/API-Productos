@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
 import pool from '../config/db.js';
-import { products_query } from '../config/queries.js';
 import type { ResponseHttp } from '../interfaces/response.interface.js';
 import { errors_queries } from "../config/errors_queries.js"
 import type { RowDataPacket } from 'mysql2';

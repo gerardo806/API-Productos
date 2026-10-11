@@ -1,17 +1,31 @@
 import { config } from "dotenv";
+import { apiReference } from '@scalar/express-api-reference';
+import { openApiSpec } from './docs/openapi.js';
+import productsRoutes from "./routes/products.routes.js";
 import express from "express";
 import cors from "cors";
 
 // Load environment variables from .env file
 config();
 
-import productsRoutes from "./routes/products.routes.js";
-
 const app = express();
 const PORT = process.env.PORTDB || 3000;
 
 // Middleware to parse JSON requests
 app.use(express.json());
+
+// Expone el JSON de la especificación
+app.get('/openapi.json', (req, res) => {
+    res.json(openApiSpec);
+});
+
+// Interfaz de Scalar
+app.use(
+    '/docs',
+    apiReference({
+        url: '/openapi.json'
+    })
+);
 
 if (productsRoutes.stack.length === 0) {
     console.warn("⚠️ productsRoutes no tiene rutas configuradas");
