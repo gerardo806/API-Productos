@@ -7,6 +7,8 @@ const productsController = new ProductsController();
 router.get('/test', (req, res) => {
     res.json({ message: 'Test route for products' });
 });
+
 router.get('/list', productsController.getAllProducts);
+router.get('/listCategory', productsController.getAllProductsOnCategory);
 
 export default router;

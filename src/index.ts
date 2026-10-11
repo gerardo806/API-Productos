@@ -13,6 +13,12 @@ const PORT = process.env.PORTDB || 3000;
 // Middleware to parse JSON requests
 app.use(express.json());
 
+if (productsRoutes.stack.length === 0) {
+    console.warn("⚠️ productsRoutes no tiene rutas configuradas");
+}
+
+app.use(cors());
+
 // Routes
 app.use('/api/products', productsRoutes);
 
