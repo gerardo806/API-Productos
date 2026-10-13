@@ -9,3 +9,9 @@ export interface Product extends RowDataPacket {
 export interface ProductWithCategory extends Product {
     nombre_categoria: string;
 }
+
+export interface NewProduct extends RowDataPacket {
+    nombre_producto: string;
+    precio: number;
+    categoriaid: number;
+}

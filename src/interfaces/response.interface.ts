@@ -9,3 +9,9 @@ export interface ResponseHttpError{
     messages: string[];
     error?: any;
 }
+
+export interface ModelData<T> {
+    success: boolean;
+    message: string;
+    data?: T;
+}

@@ -15,4 +15,11 @@ export class ProductsController {
         const requestService = new RequestHttpDb(req, res);
         return await requestService.GetAll<ProductWithCategory>(products_query.getAllProductOnCategory);
     }
+
+    async saveProduct(req: Request, res: Response) {
+        console.log('saveProduct called');
+        const product: ProductWithCategory = req.body;
+        const requestService = new RequestHttpDb(req, res);
+        return await requestService.Save<ProductWithCategory>(products_query.saveProductOnCategory, [product.nombre_producto, product.precio, product.categoriaid]);
+    }
 }

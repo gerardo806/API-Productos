@@ -14,4 +14,10 @@ router.get('/about', (req, res) => {
     res.json({ message: 'express js framework' });
 });
 
+router.post('/save', (req, res) => {
+    const product = req.body;
+    const result = productsController.saveProduct(product);
+    res.json(result);
+});
+
 export default router;

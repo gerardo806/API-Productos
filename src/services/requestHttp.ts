@@ -36,4 +36,28 @@ export class RequestHttpDb {
             return this.res.status(400).json(response);
         }
     }
+
+    async Save<T extends RowDataPacket>(query: string, data: any): Promise<Response> {
+        try {
+            const [result] = await pool.query(query, data);
+            const response: ResponseHttp = {
+                success: true,
+                message: 'Product saved successfully',
+                data: result
+            };
+            return this.res.json(response);
+        } catch (error: unknown) {
+            console.error('Error saving product:', error);
+            const errorCode = typeof error === 'object' && error !== null && 'code' in error
+                ? String(error.code)
+                : 'UNKNOWN_ERROR';
+            const message = errors_queries[errorCode as keyof typeof errors_queries] || 'An unexpected error occurred';
+            const response: ResponseHttp = {
+                success: false,
+                message,
+                data: null
+            };
+            return this.res.status(400).json(response);
+        }
+    }
 }
