@@ -5,7 +5,7 @@ import type { ModelData } from "../../interfaces/response.interface.js";
 
 export class NewProductClass {
     private dto: any;
-    constructor(private product: CreateProductDto){
+    constructor(product: CreateProductDto){
         this.dto = z.object({
             nombre_producto: z.string().min(1, { message: "El nombre del producto es requerido" }),
             precio: z.number().positive({ message: "El precio debe ser un número positivo" }),
@@ -21,8 +21,8 @@ export class NewProductClass {
 
         //validate the product data using zod schema
         if (!this.dto.success) {
-            const errors = this.dto.error.flatten().map((err: any) => err.message);
-            result.message = errors.join(", ");
+            const errors = this.dto.error.flatten().fieldErrors;
+            result.message = errors;
         } else {
             result.success = true;
             const productDto: CreateProductDto = this.dto.data;

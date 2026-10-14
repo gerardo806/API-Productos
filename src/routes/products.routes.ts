@@ -8,16 +8,21 @@ router.get('/test', (req, res) => {
     res.json({ message: 'Test route for products' });
 });
 
-router.get('/list', (req, res) => productsController.getAllProducts(req, res));
-router.get('/listAll', (req, res) => productsController.getAllProductsOnCategory(req, res));
+router.get('/list', async (req, res) => {
+    const result = await productsController.getAllProducts(req, res);
+    res.status(result.statusCode).json(result);
+});
+router.get('/listAll', async (req, res) => {
+    const result = await productsController.getAllProductsOnCategory(req, res);
+    res.status(result.statusCode).json(result);
+});
 router.get('/about', (req, res) => {
     res.json({ message: 'express js framework' });
 });
 
-router.post('/save', (req, res) => {
-    const product = req.body;
-    const result = productsController.saveProduct(product);
-    res.json(result);
+router.post('/save', async (req, res) => {
+    const result = await productsController.saveProduct(req, res);
+    res.status(result.statusCode).json(result);
 });
 
 export default router;

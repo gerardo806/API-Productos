@@ -19,7 +19,8 @@ export class RequestHttpDb {
             const response: ResponseHttp = {
                 success: true,
                 message: 'Products retrieved successfully',
-                data: rows
+                data: rows,
+                statusCode: 200
             };
             return this.res.json(response);
         } catch (error: unknown) {
@@ -31,21 +32,23 @@ export class RequestHttpDb {
             const response: ResponseHttp = {
                 success: false,
                 message,
-                data: null
+                data: null,
+                statusCode: 500
             };
             return this.res.status(400).json(response);
         }
     }
 
-    async Save<T extends RowDataPacket>(query: string, data: any): Promise<Response> {
+    async Save<T extends RowDataPacket>(query: string, data: any): Promise<ResponseHttp> {
         try {
             const [result] = await pool.query(query, data);
             const response: ResponseHttp = {
                 success: true,
                 message: 'Product saved successfully',
-                data: result
+                data: result,
+                statusCode: 201
             };
-            return this.res.json(response);
+            return response;
         } catch (error: unknown) {
             console.error('Error saving product:', error);
             const errorCode = typeof error === 'object' && error !== null && 'code' in error
@@ -55,9 +58,10 @@ export class RequestHttpDb {
             const response: ResponseHttp = {
                 success: false,
                 message,
-                data: null
+                data: null,
+                statusCode: 500
             };
-            return this.res.status(400).json(response);
+            return response;
         }
     }
 }
