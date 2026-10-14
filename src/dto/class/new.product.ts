@@ -5,9 +5,14 @@ import type { ModelData } from "../../interfaces/response.interface.js";
 
 export class NewProductClass {
     private dto: any;
-    constructor(product: CreateProductDto){
+    constructor(product: CreateProductDto) {
         this.dto = z.object({
-            nombre_producto: z.string().min(1, { message: "El nombre del producto es requerido" }),
+            nuevo_producto: z.string()
+                .min(1, { message: "El nombre del producto es requerido" })
+                .max(100, { message: "El nombre no puede superar los 100 caracteres" })
+                .regex(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]+$/, {
+                    message: "El nombre solo puede contener letras, números y espacios"
+                }),
             precio: z.number().positive({ message: "El precio debe ser un número positivo" }),
             categoriaid: z.number().int().positive({ message: "El ID de la categoría debe ser un número entero positivo" })
         }).safeParse(product);
