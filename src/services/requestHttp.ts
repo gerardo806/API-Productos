@@ -41,11 +41,11 @@ export class RequestHttpDb {
 
     async Save<T extends RowDataPacket>(query: string, data: any): Promise<ResponseHttp> {
         try {
-            const [result] = await pool.query(query, data);
+            const [] = await pool.query(query, data);
             const response: ResponseHttp = {
                 success: true,
                 message: 'Product saved successfully',
-                data: result,
+                data: null,
                 statusCode: 201
             };
             return response;
