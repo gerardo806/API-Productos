@@ -21,18 +21,26 @@ export class ProductsController {
 
     async saveProduct(req: Request, res: Response): Promise<ResponseHttp> {
         console.log('saveProduct called');
-        const productDto: CreateProductDto = req.body;
-        const newProduct = new NewProductClass(productDto);
-        const validationResult = newProduct.getProduct();
-
-        if (!validationResult.success) {
-            const responseErr: ResponseHttp = {
+        
+        const responseErr: ResponseHttp = {
                 success: false,
-                message: validationResult.message,
+                message: "",
                 data: null,
                 statusCode: 400
             };
 
+        const productDto: CreateProductDto = req.body;
+
+        if(productDto == null || productDto == undefined){
+            responseErr.message = "Product data is required";
+            return responseErr;
+        }
+
+        const newProduct = new NewProductClass(productDto);
+        const validationResult = newProduct.getProduct();
+
+        if (!validationResult.success) {
+            responseErr.message = validationResult?.message || "Invalid product data";
             return responseErr;
         }
 
