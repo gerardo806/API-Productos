@@ -39,7 +39,7 @@ export class RequestHttpDb {
         }
     }
 
-    async Save<T extends RowDataPacket>(query: string, data: any): Promise<ResponseHttp> {
+    async Save(query: string, data: any): Promise<ResponseHttp> {
         try {
             const [] = await pool.query(query, data);
             const response: ResponseHttp = {
