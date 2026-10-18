@@ -7,13 +7,13 @@ import { NewProductClass } from '../dto/class/new.product.js';
 import type { ResponseHttp } from '../interfaces/response.interface.js';
 
 export class ProductsController {
-    async getAllProducts(req: Request, res: Response) {
+    async getAllProducts(req: Request, res: Response): Promise<ResponseHttp> {
         console.log('getAllProducts called');
         const requestService = new RequestHttpDb(req, res);
         return await requestService.GetAll<Product>(products_query.getAllProducts);
     }
 
-    async getAllProductsOnCategory(req: Request, res: Response) {
+    async getAllProductsOnCategory(req: Request, res: Response): Promise<ResponseHttp> {
         console.log('getAllProductsOnCategory called');
         const requestService = new RequestHttpDb(req, res);
         return await requestService.GetAll<ProductWithCategory>(products_query.getAllProductOnCategory);

@@ -13,7 +13,7 @@ export class RequestHttpDb {
         this.res = res;
     }
 
-    async GetAll<T extends RowDataPacket>(query: string): Promise<Response> {
+    async GetAll<T extends RowDataPacket>(query: string): Promise<ResponseHttp> {
         try {
             const [rows] = await pool.query<T[]>(query);
             const response: ResponseHttp = {
@@ -22,7 +22,7 @@ export class RequestHttpDb {
                 data: rows,
                 statusCode: 200
             };
-            return this.res.json(response);
+            return response;
         } catch (error: unknown) {
             console.error('Error fetching products:', error);
             const errorCode = typeof error === 'object' && error !== null && 'code' in error
@@ -35,7 +35,7 @@ export class RequestHttpDb {
                 data: null,
                 statusCode: 500
             };
-            return this.res.status(400).json(response);
+            return response;
         }
     }
 
