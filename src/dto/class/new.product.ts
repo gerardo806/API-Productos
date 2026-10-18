@@ -7,14 +7,20 @@ export class NewProductClass {
     private dto: any;
     constructor(product: CreateProductDto) {
         this.dto = z.object({
-            nuevo_producto: z.string()
+            nuevo_producto: z.string({
+                error: "El nombre del producto es requerido"
+            })
                 .min(1, { message: "El nombre del producto es requerido" })
                 .max(100, { message: "El nombre no puede superar los 100 caracteres" })
                 .regex(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]+$/, {
                     message: "El nombre solo puede contener letras, números y espacios"
                 }),
-            precio: z.number().positive({ message: "El precio debe ser un número positivo" }),
-            categoriaid: z.number().int().positive({ message: "El ID de la categoría debe ser un número entero positivo" })
+            precio: z.number({
+                error: "El precio es requerido"
+            }).positive({ message: "El precio debe ser un número positivo" }),
+            categoriaid: z.number({
+                error: "El ID de la categoría es requerido"
+            }).int().positive({ message: "El ID de la categoría debe ser un número entero positivo" })
         }).safeParse(product);
     }
 
