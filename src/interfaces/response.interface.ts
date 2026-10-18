@@ -1,7 +1,10 @@
-export interface ResponseHttp{
+export interface ResponseCliente{
     success: boolean;
     message: string;
     data?: any;
+}
+
+export interface ResponseHttp extends ResponseCliente{
     statusCode: number;
 }
 
